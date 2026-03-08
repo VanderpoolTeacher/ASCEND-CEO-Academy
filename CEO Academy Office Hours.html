@@ -95,34 +95,48 @@
       overflow: hidden;
       display: flex;
       flex-direction: column;
-      gap: 10px;
-      mask-image: linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%);
-      -webkit-mask-image: linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%);
+      gap: 8px;
+      mask-image: linear-gradient(to right, transparent 0%, black 12%, black 88%, transparent 100%);
+      -webkit-mask-image: linear-gradient(to right, transparent 0%, black 12%, black 88%, transparent 100%);
     }
     .marquee-row {
       display: flex;
-      gap: 10px;
+      gap: 8px;
       width: max-content;
     }
-    .marquee-row.left  { animation: scrollLeft  32s linear infinite; }
-    .marquee-row.right { animation: scrollRight 26s linear infinite; }
+    .marquee-row.left  { animation: scrollLeft  38s linear infinite; }
+    .marquee-row.right { animation: scrollRight 30s linear infinite; }
     @keyframes scrollLeft  { from { transform: translateX(0); }    to { transform: translateX(-50%); } }
     @keyframes scrollRight { from { transform: translateX(-50%); } to { transform: translateX(0); }    }
     .marquee-item {
       display: flex;
       align-items: center;
-      gap: 10px;
-      border-radius: 10px;
-      padding: 10px 18px;
+      gap: 9px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.09);
+      border-radius: 8px;
+      padding: 9px 16px 9px 12px;
       white-space: nowrap;
       flex-shrink: 0;
-      border: 1px solid rgba(255,255,255,0.1);
+      backdrop-filter: blur(4px);
     }
-    .marquee-item .m-icon { font-size: 17px; line-height: 1; }
+    .marquee-item .m-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      flex-shrink: 0;
+      opacity: 0.85;
+    }
+    .marquee-item .m-icon {
+      font-size: 15px;
+      line-height: 1;
+      opacity: 0.8;
+    }
     .marquee-item .m-label {
       font-size: 13px;
-      font-weight: 700;
-      letter-spacing: 0.2px;
+      font-weight: 500;
+      color: rgba(255,255,255,0.75);
+      letter-spacing: 0.1px;
     }
 
     /* ─── NAV ─── */
@@ -541,53 +555,51 @@
   <div class="marquee-wrap">
     <!-- Row 1: scrolls left -->
     <div class="marquee-row left">
-      <!-- set 1 -->
-      <div class="marquee-item" style="background:rgba(45,125,210,0.2);color:#93c5fd;"><span class="m-icon">🤖</span><span class="m-label">AI & Technology</span></div>
-      <div class="marquee-item" style="background:rgba(22,163,74,0.2);color:#86efac;"><span class="m-icon">💰</span><span class="m-label">Funding & Investment</span></div>
-      <div class="marquee-item" style="background:rgba(124,58,237,0.2);color:#c4b5fd;"><span class="m-icon">🏛️</span><span class="m-label">Government & Regulation</span></div>
-      <div class="marquee-item" style="background:rgba(225,29,72,0.2);color:#fca5a5;"><span class="m-icon">📣</span><span class="m-label">Marketing & Brand</span></div>
-      <div class="marquee-item" style="background:rgba(240,180,41,0.2);color:#fde68a;"><span class="m-icon">🎯</span><span class="m-label">Business Strategy</span></div>
-      <div class="marquee-item" style="background:rgba(13,148,136,0.2);color:#99f6e4;"><span class="m-icon">🎨</span><span class="m-label">Design Thinking</span></div>
-      <div class="marquee-item" style="background:rgba(234,88,12,0.2);color:#fdba74;"><span class="m-icon">⚖️</span><span class="m-label">Legal Foundations</span></div>
-      <div class="marquee-item" style="background:rgba(180,83,9,0.2);color:#fcd34d;"><span class="m-icon">👥</span><span class="m-label">People & HR</span></div>
-      <div class="marquee-item" style="background:rgba(29,78,216,0.2);color:#a5b4fc;"><span class="m-icon">📊</span><span class="m-label">Accounting & Finance</span></div>
-      <div class="marquee-item" style="background:rgba(220,38,38,0.2);color:#fca5a5;"><span class="m-icon">🚀</span><span class="m-label">Startup Launch</span></div>
-      <!-- set 2 (duplicate for seamless loop) -->
-      <div class="marquee-item" style="background:rgba(45,125,210,0.2);color:#93c5fd;"><span class="m-icon">🤖</span><span class="m-label">AI & Technology</span></div>
-      <div class="marquee-item" style="background:rgba(22,163,74,0.2);color:#86efac;"><span class="m-icon">💰</span><span class="m-label">Funding & Investment</span></div>
-      <div class="marquee-item" style="background:rgba(124,58,237,0.2);color:#c4b5fd;"><span class="m-icon">🏛️</span><span class="m-label">Government & Regulation</span></div>
-      <div class="marquee-item" style="background:rgba(225,29,72,0.2);color:#fca5a5;"><span class="m-icon">📣</span><span class="m-label">Marketing & Brand</span></div>
-      <div class="marquee-item" style="background:rgba(240,180,41,0.2);color:#fde68a;"><span class="m-icon">🎯</span><span class="m-label">Business Strategy</span></div>
-      <div class="marquee-item" style="background:rgba(13,148,136,0.2);color:#99f6e4;"><span class="m-icon">🎨</span><span class="m-label">Design Thinking</span></div>
-      <div class="marquee-item" style="background:rgba(234,88,12,0.2);color:#fdba74;"><span class="m-icon">⚖️</span><span class="m-label">Legal Foundations</span></div>
-      <div class="marquee-item" style="background:rgba(180,83,9,0.2);color:#fcd34d;"><span class="m-icon">👥</span><span class="m-label">People & HR</span></div>
-      <div class="marquee-item" style="background:rgba(29,78,216,0.2);color:#a5b4fc;"><span class="m-icon">📊</span><span class="m-label">Accounting & Finance</span></div>
-      <div class="marquee-item" style="background:rgba(220,38,38,0.2);color:#fca5a5;"><span class="m-icon">🚀</span><span class="m-label">Startup Launch</span></div>
+      <div class="marquee-item"><span class="m-dot" style="background:#60a5fa;"></span><span class="m-icon">🤖</span><span class="m-label">AI & Technology</span></div>
+      <div class="marquee-item"><span class="m-dot" style="background:#4ade80;"></span><span class="m-icon">💰</span><span class="m-label">Funding & Investment</span></div>
+      <div class="marquee-item"><span class="m-dot" style="background:#a78bfa;"></span><span class="m-icon">🏛️</span><span class="m-label">Government & Regulation</span></div>
+      <div class="marquee-item"><span class="m-dot" style="background:#f472b6;"></span><span class="m-icon">📣</span><span class="m-label">Marketing & Brand</span></div>
+      <div class="marquee-item"><span class="m-dot" style="background:#fbbf24;"></span><span class="m-icon">🎯</span><span class="m-label">Business Strategy</span></div>
+      <div class="marquee-item"><span class="m-dot" style="background:#2dd4bf;"></span><span class="m-icon">🎨</span><span class="m-label">Design Thinking</span></div>
+      <div class="marquee-item"><span class="m-dot" style="background:#fb923c;"></span><span class="m-icon">⚖️</span><span class="m-label">Legal Foundations</span></div>
+      <div class="marquee-item"><span class="m-dot" style="background:#f59e0b;"></span><span class="m-icon">👥</span><span class="m-label">People & HR</span></div>
+      <div class="marquee-item"><span class="m-dot" style="background:#818cf8;"></span><span class="m-icon">📊</span><span class="m-label">Accounting & Finance</span></div>
+      <div class="marquee-item"><span class="m-dot" style="background:#f87171;"></span><span class="m-icon">🚀</span><span class="m-label">Startup Launch</span></div>
+      <!-- duplicate -->
+      <div class="marquee-item"><span class="m-dot" style="background:#60a5fa;"></span><span class="m-icon">🤖</span><span class="m-label">AI & Technology</span></div>
+      <div class="marquee-item"><span class="m-dot" style="background:#4ade80;"></span><span class="m-icon">💰</span><span class="m-label">Funding & Investment</span></div>
+      <div class="marquee-item"><span class="m-dot" style="background:#a78bfa;"></span><span class="m-icon">🏛️</span><span class="m-label">Government & Regulation</span></div>
+      <div class="marquee-item"><span class="m-dot" style="background:#f472b6;"></span><span class="m-icon">📣</span><span class="m-label">Marketing & Brand</span></div>
+      <div class="marquee-item"><span class="m-dot" style="background:#fbbf24;"></span><span class="m-icon">🎯</span><span class="m-label">Business Strategy</span></div>
+      <div class="marquee-item"><span class="m-dot" style="background:#2dd4bf;"></span><span class="m-icon">🎨</span><span class="m-label">Design Thinking</span></div>
+      <div class="marquee-item"><span class="m-dot" style="background:#fb923c;"></span><span class="m-icon">⚖️</span><span class="m-label">Legal Foundations</span></div>
+      <div class="marquee-item"><span class="m-dot" style="background:#f59e0b;"></span><span class="m-icon">👥</span><span class="m-label">People & HR</span></div>
+      <div class="marquee-item"><span class="m-dot" style="background:#818cf8;"></span><span class="m-icon">📊</span><span class="m-label">Accounting & Finance</span></div>
+      <div class="marquee-item"><span class="m-dot" style="background:#f87171;"></span><span class="m-icon">🚀</span><span class="m-label">Startup Launch</span></div>
     </div>
     <!-- Row 2: scrolls right -->
     <div class="marquee-row right">
-      <!-- set 1 -->
-      <div class="marquee-item" style="background:rgba(234,88,12,0.2);color:#fdba74;"><span class="m-icon">📈</span><span class="m-label">Scale-Up & Growth</span></div>
-      <div class="marquee-item" style="background:rgba(45,125,210,0.2);color:#93c5fd;"><span class="m-icon">🖥️</span><span class="m-label">UX & Product Design</span></div>
-      <div class="marquee-item" style="background:rgba(22,163,74,0.2);color:#86efac;"><span class="m-icon">🏦</span><span class="m-label">SBA Loans & Grants</span></div>
-      <div class="marquee-item" style="background:rgba(124,58,237,0.2);color:#c4b5fd;"><span class="m-icon">📋</span><span class="m-label">Government Contracting</span></div>
-      <div class="marquee-item" style="background:rgba(240,180,41,0.2);color:#fde68a;"><span class="m-icon">🧭</span><span class="m-label">Leadership Development</span></div>
-      <div class="marquee-item" style="background:rgba(13,148,136,0.2);color:#99f6e4;"><span class="m-icon">🔧</span><span class="m-label">Operations & Systems</span></div>
-      <div class="marquee-item" style="background:rgba(180,83,9,0.2);color:#fcd34d;"><span class="m-icon">💡</span><span class="m-label">Innovation Strategy</span></div>
-      <div class="marquee-item" style="background:rgba(29,78,216,0.2);color:#a5b4fc;"><span class="m-icon">🛡️</span><span class="m-label">Regulatory Compliance</span></div>
-      <div class="marquee-item" style="background:rgba(225,29,72,0.2);color:#fca5a5;"><span class="m-icon">🤝</span><span class="m-label">Sales & Partnerships</span></div>
-      <div class="marquee-item" style="background:rgba(220,38,38,0.2);color:#fca5a5;"><span class="m-icon">🧮</span><span class="m-label">Financial Modeling</span></div>
-      <!-- set 2 (duplicate for seamless loop) -->
-      <div class="marquee-item" style="background:rgba(234,88,12,0.2);color:#fdba74;"><span class="m-icon">📈</span><span class="m-label">Scale-Up & Growth</span></div>
-      <div class="marquee-item" style="background:rgba(45,125,210,0.2);color:#93c5fd;"><span class="m-icon">🖥️</span><span class="m-label">UX & Product Design</span></div>
-      <div class="marquee-item" style="background:rgba(22,163,74,0.2);color:#86efac;"><span class="m-icon">🏦</span><span class="m-label">SBA Loans & Grants</span></div>
-      <div class="marquee-item" style="background:rgba(124,58,237,0.2);color:#c4b5fd;"><span class="m-icon">📋</span><span class="m-label">Government Contracting</span></div>
-      <div class="marquee-item" style="background:rgba(240,180,41,0.2);color:#fde68a;"><span class="m-icon">🧭</span><span class="m-label">Leadership Development</span></div>
-      <div class="marquee-item" style="background:rgba(13,148,136,0.2);color:#99f6e4;"><span class="m-icon">🔧</span><span class="m-label">Operations & Systems</span></div>
-      <div class="marquee-item" style="background:rgba(180,83,9,0.2);color:#fcd34d;"><span class="m-icon">💡</span><span class="m-label">Innovation Strategy</span></div>
-      <div class="marquee-item" style="background:rgba(29,78,216,0.2);color:#a5b4fc;"><span class="m-icon">🛡️</span><span class="m-label">Regulatory Compliance</span></div>
-      <div class="marquee-item" style="background:rgba(225,29,72,0.2);color:#fca5a5;"><span class="m-icon">🤝</span><span class="m-label">Sales & Partnerships</span></div>
-      <div class="marquee-item" style="background:rgba(220,38,38,0.2);color:#fca5a5;"><span class="m-icon">🧮</span><span class="m-label">Financial Modeling</span></div>
+      <div class="marquee-item"><span class="m-dot" style="background:#fb923c;"></span><span class="m-icon">📈</span><span class="m-label">Scale-Up & Growth</span></div>
+      <div class="marquee-item"><span class="m-dot" style="background:#60a5fa;"></span><span class="m-icon">🖥️</span><span class="m-label">UX & Product Design</span></div>
+      <div class="marquee-item"><span class="m-dot" style="background:#4ade80;"></span><span class="m-icon">🏦</span><span class="m-label">SBA Loans & Grants</span></div>
+      <div class="marquee-item"><span class="m-dot" style="background:#a78bfa;"></span><span class="m-icon">📋</span><span class="m-label">Government Contracting</span></div>
+      <div class="marquee-item"><span class="m-dot" style="background:#fbbf24;"></span><span class="m-icon">🧭</span><span class="m-label">Leadership Development</span></div>
+      <div class="marquee-item"><span class="m-dot" style="background:#2dd4bf;"></span><span class="m-icon">🔧</span><span class="m-label">Operations & Systems</span></div>
+      <div class="marquee-item"><span class="m-dot" style="background:#f59e0b;"></span><span class="m-icon">💡</span><span class="m-label">Innovation Strategy</span></div>
+      <div class="marquee-item"><span class="m-dot" style="background:#818cf8;"></span><span class="m-icon">🛡️</span><span class="m-label">Regulatory Compliance</span></div>
+      <div class="marquee-item"><span class="m-dot" style="background:#f472b6;"></span><span class="m-icon">🤝</span><span class="m-label">Sales & Partnerships</span></div>
+      <div class="marquee-item"><span class="m-dot" style="background:#f87171;"></span><span class="m-icon">🧮</span><span class="m-label">Financial Modeling</span></div>
+      <!-- duplicate -->
+      <div class="marquee-item"><span class="m-dot" style="background:#fb923c;"></span><span class="m-icon">📈</span><span class="m-label">Scale-Up & Growth</span></div>
+      <div class="marquee-item"><span class="m-dot" style="background:#60a5fa;"></span><span class="m-icon">🖥️</span><span class="m-label">UX & Product Design</span></div>
+      <div class="marquee-item"><span class="m-dot" style="background:#4ade80;"></span><span class="m-icon">🏦</span><span class="m-label">SBA Loans & Grants</span></div>
+      <div class="marquee-item"><span class="m-dot" style="background:#a78bfa;"></span><span class="m-icon">📋</span><span class="m-label">Government Contracting</span></div>
+      <div class="marquee-item"><span class="m-dot" style="background:#fbbf24;"></span><span class="m-icon">🧭</span><span class="m-label">Leadership Development</span></div>
+      <div class="marquee-item"><span class="m-dot" style="background:#2dd4bf;"></span><span class="m-icon">🔧</span><span class="m-label">Operations & Systems</span></div>
+      <div class="marquee-item"><span class="m-dot" style="background:#f59e0b;"></span><span class="m-icon">💡</span><span class="m-label">Innovation Strategy</span></div>
+      <div class="marquee-item"><span class="m-dot" style="background:#818cf8;"></span><span class="m-icon">🛡️</span><span class="m-label">Regulatory Compliance</span></div>
+      <div class="marquee-item"><span class="m-dot" style="background:#f472b6;"></span><span class="m-icon">🤝</span><span class="m-label">Sales & Partnerships</span></div>
+      <div class="marquee-item"><span class="m-dot" style="background:#f87171;"></span><span class="m-icon">🧮</span><span class="m-label">Financial Modeling</span></div>
     </div>
   </div>
 </section>

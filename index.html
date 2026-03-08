@@ -216,6 +216,219 @@
     .about h3 { font-size: 20px; font-weight: 800; margin-bottom: 10px; }
     .about p { font-size: 14px; color: rgba(255,255,255,0.7); line-height: 1.7; max-width: 560px; }
 
+    /* ── SLIDESHOW ── */
+    .slideshow {
+      background: #060b10;
+      position: relative;
+      overflow: hidden;
+    }
+    /* Top & bottom edge gradient separators */
+    .slideshow::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(240,180,41,0.25), transparent);
+      z-index: 2;
+    }
+    .slideshow::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.08), transparent);
+      z-index: 2;
+    }
+    .slides-outer {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 0 48px;
+      position: relative;
+      z-index: 1;
+    }
+    .slides-track { position: relative; overflow: hidden; }
+    .slide {
+      display: none;
+      animation: slideIn 0.45s cubic-bezier(0.22,1,0.36,1);
+    }
+    .slide.active { display: block; }
+    @keyframes slideIn {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Two-column: content + stat */
+    .slide-inner {
+      position: relative;
+      padding: 72px 0 56px;
+      min-height: 420px;
+      display: grid;
+      grid-template-columns: 1fr 170px;
+      gap: 32px;
+      align-items: center;
+      overflow: hidden;
+    }
+
+    /* Giant ghost letter — visible fill + gold outline */
+    .slide-bg-letter {
+      position: absolute;
+      right: -50px;
+      bottom: -30px;
+      font-size: clamp(300px, 44vw, 520px);
+      font-weight: 900;
+      line-height: 0.82;
+      letter-spacing: -28px;
+      color: rgba(255,255,255,0.03);
+      -webkit-text-stroke: 1.5px rgba(240,180,41,0.18);
+      user-select: none;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* Left: main content */
+    .slide-content {
+      position: relative;
+      z-index: 1;
+    }
+    .slide-category {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 22px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      opacity: 0.75;
+    }
+    .slide-category::before {
+      content: '';
+      width: 24px; height: 1px;
+      background: var(--gold);
+      flex-shrink: 0;
+    }
+    .slide-content h2 {
+      font-size: clamp(30px, 5.2vw, 64px);
+      font-weight: 800;
+      color: #ffffff;
+      line-height: 1.05;
+      margin-bottom: 16px;
+      letter-spacing: -2px;
+    }
+    .slide-content p {
+      font-size: 14.5px;
+      color: rgba(255,255,255,0.38);
+      line-height: 1.8;
+      margin-bottom: 24px;
+      max-width: 460px;
+    }
+    .slide-items {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+    }
+    .slide-items li {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      font-size: 13px;
+      color: rgba(255,255,255,0.52);
+      line-height: 1.62;
+      padding: 10px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+    .slide-items li:last-child { border-bottom: none; padding-bottom: 0; }
+    .slide-items li::before {
+      content: '';
+      width: 3px; height: 3px;
+      border-radius: 50%;
+      background: var(--gold);
+      flex-shrink: 0;
+      margin-top: 8px;
+      opacity: 0.65;
+    }
+
+    /* Right: big stat */
+    .slide-stat {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      text-align: right;
+      gap: 4px;
+    }
+    .stat-num {
+      font-size: clamp(64px, 9vw, 100px);
+      font-weight: 900;
+      color: var(--gold);
+      line-height: 1;
+      letter-spacing: -3px;
+    }
+    .stat-label {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.28);
+      line-height: 1.6;
+    }
+
+    /* Controls */
+    .slide-controls {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 18px 0 30px;
+      border-top: 1px solid rgba(255,255,255,0.05);
+      position: relative;
+      z-index: 1;
+    }
+    .slide-dots { display: flex; gap: 6px; align-items: center; }
+    .dot {
+      width: 16px; height: 1px;
+      background: rgba(255,255,255,0.12);
+      cursor: pointer;
+      transition: background 0.25s, width 0.25s;
+      border: none;
+    }
+    .dot.active { background: var(--gold); width: 26px; }
+    .dot:hover:not(.active) { background: rgba(255,255,255,0.3); }
+    .slide-btns { display: flex; gap: 8px; }
+    .slide-btn {
+      width: 34px; height: 34px;
+      border-radius: 50%;
+      border: 1px solid rgba(255,255,255,0.1);
+      background: transparent;
+      color: rgba(255,255,255,0.35);
+      font-size: 13px;
+      cursor: pointer;
+      transition: all 0.2s;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .slide-btn:hover:not(:disabled) {
+      border-color: var(--gold);
+      color: var(--gold);
+      background: rgba(240,180,41,0.07);
+    }
+    .slide-btn:disabled { opacity: 0.12; cursor: default; }
+
+    @media (max-width: 700px) {
+      .slides-outer { padding: 0 20px; }
+      .slide-inner {
+        grid-template-columns: 1fr;
+        padding: 44px 0 36px;
+        min-height: auto;
+        gap: 28px;
+      }
+      .slide-stat { flex-direction: row; align-items: baseline; gap: 12px; text-align: left; }
+      .stat-num { font-size: 52px; }
+      .slide-bg-letter { font-size: 200px; right: -10px; bottom: -10px; }
+      .slide-content h2 { font-size: 26px; letter-spacing: -0.5px; }
+      .slide-controls { padding: 14px 0 24px; }
+    }
+
     /* ── FOOTER ── */
     footer {
       background: var(--navy);
@@ -246,6 +459,164 @@
   <p style="font-size:12px; letter-spacing:1.5px; text-transform:uppercase; color:rgba(255,255,255,0.45); margin-bottom:16px; position:relative; z-index:1;">Accelerating Startups, Community & Economic Network Development</p>
   <p>Interactive resources for participants, mentors, and program staff.</p>
 </header>
+
+<!-- SLIDESHOW -->
+<section class="slideshow">
+  <div class="slides-outer">
+    <div class="slides-track">
+
+      <!-- Slide 1: A -->
+      <div class="slide active">
+        <div class="slide-inner">
+          <div class="slide-bg-letter">A</div>
+          <div class="slide-content">
+            <div class="slide-category">A — Accelerating</div>
+            <h2>Leadership You Practice, Not Study</h2>
+            <p>ASCEND CEO Academy is a 12-week applied executive leadership program. Participants don't sit in lectures — they serve as acting CEOs and executive leads for real organizations, making real decisions with real consequences.</p>
+            <ul class="slide-items">
+              <li>Placed inside real startups, nonprofits, and growing businesses</li>
+              <li>Hold actual decision authority from Day 1</li>
+              <li>Supported by experienced executive mentors weekly</li>
+              <li>Evaluated on outcomes, not exams</li>
+            </ul>
+          </div>
+          <div class="slide-stat">
+            <div class="stat-num">12</div>
+            <div class="stat-label">Week<br>Program</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Slide 2: S -->
+      <div class="slide">
+        <div class="slide-inner">
+          <div class="slide-bg-letter">S</div>
+          <div class="slide-content">
+            <div class="slide-category">S — Startups</div>
+            <h2>The Gap Between MBA and the CEO Chair</h2>
+            <p>Traditional programs teach frameworks, cases, and analysis. None of that prepares you for the moment you're sitting across from a struggling team member, an unhappy investor, or a decision that has no right answer.</p>
+            <ul class="slide-items">
+              <li>Case studies don't build judgment — experience does</li>
+              <li>Most executives get their first real leadership experience too late</li>
+              <li>Simulated authority teaches nothing about accountability</li>
+              <li>ASCEND closes the gap with structured, real-world exposure</li>
+            </ul>
+          </div>
+          <div class="slide-stat">
+            <div class="stat-num">0</div>
+            <div class="stat-label">Lectures.<br>100% Experience</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Slide 3: C -->
+      <div class="slide">
+        <div class="slide-inner">
+          <div class="slide-bg-letter">C</div>
+          <div class="slide-content">
+            <div class="slide-category">C — Community</div>
+            <h2>Three Phases, One Transformation</h2>
+            <p>The program moves participants from preparation through active leadership to final reflection — with a consistent weekly rhythm that converts daily experience into lasting skill.</p>
+            <ul class="slide-items">
+              <li><strong>Week 1 — Bootcamp:</strong> Mindset reset, team formation, placement prep</li>
+              <li><strong>Weeks 2–11 — CEO Placement:</strong> Lead your organization. Reflect every Friday. Meet your mentor every Monday.</li>
+              <li><strong>Week 12 — Closing:</strong> Executive portfolio, final presentation, program debrief</li>
+            </ul>
+          </div>
+          <div class="slide-stat">
+            <div class="stat-num">3</div>
+            <div class="stat-label">Phases of<br>Leadership</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Slide 4: E -->
+      <div class="slide">
+        <div class="slide-inner">
+          <div class="slide-bg-letter">E</div>
+          <div class="slide-content">
+            <div class="slide-category">E — Economic</div>
+            <h2>Six CEO Competencies, Built Through Action</h2>
+            <p>Participants are coached and evaluated across the six capabilities that define effective executive leadership — none of which can be learned from a textbook alone.</p>
+            <ul class="slide-items">
+              <li>Strategic thinking & resource allocation</li>
+              <li>Decision-making under uncertainty</li>
+              <li>Organizational leadership & team building</li>
+              <li>Executive communication & presence</li>
+              <li>Operational awareness & financial literacy</li>
+              <li>Self-leadership, reflection & coachability</li>
+            </ul>
+          </div>
+          <div class="slide-stat">
+            <div class="stat-num">6</div>
+            <div class="stat-label">Core CEO<br>Competencies</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Slide 5: N -->
+      <div class="slide">
+        <div class="slide-inner">
+          <div class="slide-bg-letter">N</div>
+          <div class="slide-content">
+            <div class="slide-category">N — Network</div>
+            <h2>Every Participant Has an Expert in Their Corner</h2>
+            <p>ASCEND pairs every participant with an experienced executive mentor — and backs that with on-demand Office Hours access to a full team of specialists covering funding, legal, HR, AI, government contracting, and more.</p>
+            <ul class="slide-items">
+              <li>Weekly one-on-one sessions with a dedicated executive mentor</li>
+              <li>On-demand Office Hours with specialists across 12+ disciplines</li>
+              <li>Mentors guide thinking — they don't run the company for you</li>
+              <li>Relationships that extend well beyond the 12-week program</li>
+            </ul>
+          </div>
+          <div class="slide-stat">
+            <div class="stat-num">12+</div>
+            <div class="stat-label">Expert<br>Disciplines</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Slide 6: D -->
+      <div class="slide">
+        <div class="slide-inner">
+          <div class="slide-bg-letter">D</div>
+          <div class="slide-content">
+            <div class="slide-category">D — Development</div>
+            <h2>Real Experience. Real Proof. Real Network.</h2>
+            <p>ASCEND graduates don't leave with a certificate — they leave with a documented record of executive decisions made, outcomes driven, and hard lessons learned from leading under real pressure.</p>
+            <ul class="slide-items">
+              <li>CEO Leadership Portfolio with documented decisions and outcomes</li>
+              <li>Executive presentation: what they inherited, changed, and learned</li>
+              <li>For startup-track participants: validated concept and launch roadmap</li>
+              <li>A personal leadership framework built from real experience</li>
+            </ul>
+          </div>
+          <div class="slide-stat">
+            <div class="stat-num" style="font-size:clamp(40px,6vw,68px);letter-spacing:-1px;">Day 1</div>
+            <div class="stat-label">Real<br>Authority</div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /slides-track -->
+
+    <div class="slide-controls">
+      <div class="slide-dots">
+        <button class="dot active" onclick="goTo(0)" title="A — Accelerating"></button>
+        <button class="dot" onclick="goTo(1)" title="S — Startups"></button>
+        <button class="dot" onclick="goTo(2)" title="C — Community"></button>
+        <button class="dot" onclick="goTo(3)" title="E — Economic"></button>
+        <button class="dot" onclick="goTo(4)" title="N — Network"></button>
+        <button class="dot" onclick="goTo(5)" title="D — Development"></button>
+      </div>
+      <div class="slide-btns">
+        <button class="slide-btn" id="prev-btn" onclick="changeSlide(-1)" disabled>←</button>
+        <button class="slide-btn" id="next-btn" onclick="changeSlide(1)">→</button>
+      </div>
+    </div>
+
+  </div><!-- /slides-outer -->
+</section>
 
 <main>
   <div class="inner">
@@ -302,5 +673,31 @@
   <strong>ASCEND CEO Academy</strong> &nbsp;·&nbsp; Anthony Wayne Innovation & Design
 </footer>
 
+<script>
+  let current = 0;
+  const slides = document.querySelectorAll('.slide');
+  const dots   = document.querySelectorAll('.dot');
+
+  function goTo(n) {
+    slides[current].classList.remove('active');
+    dots[current].classList.remove('active');
+    current = n;
+    slides[current].classList.add('active');
+    dots[current].classList.add('active');
+    document.getElementById('prev-btn').disabled = current === 0;
+    document.getElementById('next-btn').disabled = current === slides.length - 1;
+  }
+
+  function changeSlide(dir) {
+    const next = current + dir;
+    if (next >= 0 && next < slides.length) goTo(next);
+  }
+
+  // Keyboard nav
+  document.addEventListener('keydown', e => {
+    if (e.key === 'ArrowRight') changeSlide(1);
+    if (e.key === 'ArrowLeft')  changeSlide(-1);
+  });
+</script>
 </body>
 </html>
