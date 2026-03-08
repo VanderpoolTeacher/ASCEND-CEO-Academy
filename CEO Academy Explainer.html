@@ -1,0 +1,1224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ASCEND CEO Academy — Interactive Explainer</title>
+  <style>
+    :root {
+      --navy: #0f2444;
+      --blue: #1a56a0;
+      --mid-blue: #2d7dd2;
+      --accent: #e8a020;
+      --gold: #f0b429;
+      --light: #f4f7fc;
+      --white: #ffffff;
+      --gray: #64748b;
+      --light-gray: #e2e8f0;
+      --dark: #1e293b;
+      --success: #16a34a;
+      --text: #1e293b;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      background: var(--navy);
+      color: var(--text);
+      overflow-x: hidden;
+    }
+
+    /* ── HERO ── */
+    .hero {
+      background: linear-gradient(135deg, #0f2444 0%, #1a3a6e 50%, #0f2444 100%);
+      color: white;
+      text-align: center;
+      padding: 80px 24px 60px;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      width: 600px; height: 600px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(240,180,41,0.08) 0%, transparent 70%);
+      top: -200px; right: -100px;
+    }
+    .hero::after {
+      content: '';
+      position: absolute;
+      width: 400px; height: 400px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(45,125,210,0.12) 0%, transparent 70%);
+      bottom: -100px; left: -50px;
+    }
+    .hero-badge {
+      display: inline-block;
+      background: rgba(240,180,41,0.15);
+      border: 1px solid rgba(240,180,41,0.4);
+      color: var(--gold);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      padding: 6px 18px;
+      border-radius: 30px;
+      margin-bottom: 24px;
+    }
+    .hero h1 {
+      font-size: clamp(36px, 6vw, 72px);
+      font-weight: 800;
+      line-height: 1.1;
+      margin-bottom: 16px;
+      letter-spacing: -1px;
+    }
+    .hero h1 span { color: var(--gold); }
+    .hero-sub {
+      font-size: clamp(16px, 2vw, 20px);
+      color: rgba(255,255,255,0.7);
+      max-width: 580px;
+      margin: 0 auto 40px;
+      line-height: 1.6;
+    }
+    .hero-stats {
+      display: flex;
+      justify-content: center;
+      gap: 48px;
+      flex-wrap: wrap;
+      position: relative;
+      z-index: 1;
+    }
+    .hero-stat { text-align: center; }
+    .hero-stat .num {
+      font-size: 40px;
+      font-weight: 800;
+      color: var(--gold);
+      display: block;
+      line-height: 1;
+    }
+    .hero-stat .lbl {
+      font-size: 13px;
+      color: rgba(255,255,255,0.6);
+      margin-top: 4px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    /* ── NAV ── */
+    .nav {
+      background: var(--white);
+      border-bottom: 1px solid var(--light-gray);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    }
+    .nav-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      overflow-x: auto;
+      scrollbar-width: none;
+      padding: 0 16px;
+    }
+    .nav-inner::-webkit-scrollbar { display: none; }
+    .nav-btn {
+      flex-shrink: 0;
+      padding: 16px 20px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--gray);
+      background: none;
+      border: none;
+      border-bottom: 3px solid transparent;
+      cursor: pointer;
+      transition: all 0.2s;
+      white-space: nowrap;
+    }
+    .nav-btn:hover { color: var(--blue); }
+    .nav-btn.active {
+      color: var(--blue);
+      border-bottom-color: var(--blue);
+    }
+
+    /* ── MAIN ── */
+    .main {
+      background: var(--light);
+      min-height: 100vh;
+    }
+
+    /* ── SECTIONS ── */
+    .section {
+      display: none;
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 48px 24px 80px;
+      animation: fadeIn 0.35s ease;
+    }
+    .section.active { display: block; }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(12px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .section-header {
+      margin-bottom: 40px;
+    }
+    .section-header .eyebrow {
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--mid-blue);
+      margin-bottom: 8px;
+    }
+    .section-header h2 {
+      font-size: clamp(28px, 4vw, 42px);
+      font-weight: 800;
+      color: var(--navy);
+      line-height: 1.15;
+      margin-bottom: 12px;
+    }
+    .section-header p {
+      font-size: 17px;
+      color: var(--gray);
+      max-width: 680px;
+      line-height: 1.7;
+    }
+
+    /* ── CARDS ── */
+    .cards { display: grid; gap: 24px; }
+    .cards-2 { grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); }
+    .cards-3 { grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
+
+    .card {
+      background: var(--white);
+      border-radius: 16px;
+      padding: 28px;
+      border: 1px solid var(--light-gray);
+      transition: box-shadow 0.2s, transform 0.2s;
+    }
+    .card:hover {
+      box-shadow: 0 8px 32px rgba(15,36,68,0.12);
+      transform: translateY(-2px);
+    }
+    .card-icon {
+      width: 48px; height: 48px;
+      border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 22px;
+      margin-bottom: 16px;
+    }
+    .card h3 {
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--navy);
+      margin-bottom: 8px;
+    }
+    .card p {
+      font-size: 14px;
+      color: var(--gray);
+      line-height: 1.65;
+    }
+
+    /* ── PRINCIPLES ── */
+    .principle {
+      background: var(--white);
+      border-radius: 16px;
+      padding: 28px 32px;
+      border: 1px solid var(--light-gray);
+      display: flex;
+      align-items: flex-start;
+      gap: 20px;
+      cursor: pointer;
+      transition: all 0.25s;
+      margin-bottom: 16px;
+    }
+    .principle:hover {
+      box-shadow: 0 6px 24px rgba(15,36,68,0.1);
+      transform: translateX(4px);
+    }
+    .principle.open { border-color: var(--mid-blue); }
+    .principle-num {
+      width: 44px; height: 44px;
+      border-radius: 50%;
+      background: var(--navy);
+      color: white;
+      font-weight: 800;
+      font-size: 18px;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .principle.open .principle-num { background: var(--mid-blue); }
+    .principle-body { flex: 1; }
+    .principle-title {
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--navy);
+      margin-bottom: 4px;
+    }
+    .principle-sub {
+      font-size: 13px;
+      color: var(--gray);
+    }
+    .principle-detail {
+      display: none;
+      margin-top: 12px;
+      font-size: 14px;
+      color: var(--text);
+      line-height: 1.7;
+      border-top: 1px solid var(--light-gray);
+      padding-top: 12px;
+    }
+    .principle.open .principle-detail { display: block; }
+    .principle-arrow {
+      font-size: 18px;
+      color: var(--gray);
+      transition: transform 0.25s;
+      flex-shrink: 0;
+      margin-top: 12px;
+    }
+    .principle.open .principle-arrow { transform: rotate(180deg); color: var(--mid-blue); }
+
+    /* ── TIMELINE ── */
+    .timeline { position: relative; }
+    .timeline-phases { display: flex; gap: 0; margin-bottom: 32px; }
+    .phase-tab {
+      flex: 1;
+      padding: 14px 20px;
+      text-align: center;
+      cursor: pointer;
+      border-radius: 0;
+      border-bottom: 3px solid var(--light-gray);
+      background: var(--white);
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--gray);
+      transition: all 0.2s;
+      border: 1px solid var(--light-gray);
+    }
+    .phase-tab:first-child { border-radius: 12px 0 0 0; }
+    .phase-tab:last-child  { border-radius: 0 12px 0 0; }
+    .phase-tab.active {
+      background: var(--navy);
+      color: white;
+      border-color: var(--navy);
+    }
+    .phase-tab .phase-label { font-size: 11px; opacity: 0.7; display: block; margin-top: 2px; }
+    .phase-content {
+      display: none;
+      background: var(--white);
+      border-radius: 0 0 16px 16px;
+      border: 1px solid var(--light-gray);
+      border-top: none;
+      padding: 32px;
+      animation: fadeIn 0.25s ease;
+    }
+    .phase-content.active { display: block; }
+
+    .phase-content h3 {
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--navy);
+      margin-bottom: 8px;
+    }
+    .phase-content .phase-desc {
+      color: var(--gray);
+      margin-bottom: 24px;
+      font-size: 15px;
+      line-height: 1.6;
+    }
+
+    .checklist { list-style: none; }
+    .checklist li {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      padding: 9px 0;
+      font-size: 14px;
+      color: var(--text);
+      border-bottom: 1px solid var(--light-gray);
+    }
+    .checklist li:last-child { border-bottom: none; }
+    .checklist .chk {
+      width: 20px; height: 20px;
+      border-radius: 50%;
+      background: #dcfce7;
+      color: var(--success);
+      font-size: 11px;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    /* weekly cycle visual */
+    .weekly-cycle {
+      display: flex;
+      gap: 0;
+      margin-top: 24px;
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid var(--light-gray);
+    }
+    .week-day {
+      flex: 1;
+      padding: 20px 16px;
+      text-align: center;
+      position: relative;
+    }
+    .week-day:not(:last-child)::after {
+      content: '→';
+      position: absolute;
+      right: -8px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 16px;
+      color: var(--gray);
+      z-index: 1;
+    }
+    .week-day.friday  { background: #fef9ec; }
+    .week-day.monday  { background: #eff6ff; }
+    .week-day.midweek { background: #f0fdf4; }
+    .week-day-label {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 8px;
+    }
+    .week-day.friday  .week-day-label { color: #b45309; }
+    .week-day.monday  .week-day-label { color: var(--blue); }
+    .week-day.midweek .week-day-label { color: var(--success); }
+    .week-day-icon { font-size: 28px; margin-bottom: 8px; }
+    .week-day-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--navy);
+      margin-bottom: 6px;
+    }
+    .week-day-items {
+      font-size: 12px;
+      color: var(--gray);
+      line-height: 1.6;
+      list-style: none;
+      text-align: left;
+    }
+
+    /* ── SKILLS GRID ── */
+    .skill-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
+    .skill-card {
+      background: var(--white);
+      border-radius: 14px;
+      padding: 24px;
+      border: 1px solid var(--light-gray);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .skill-card:hover {
+      box-shadow: 0 6px 24px rgba(15,36,68,0.1);
+      transform: translateY(-2px);
+      border-color: var(--mid-blue);
+    }
+    .skill-card.expanded { border-color: var(--mid-blue); background: #f0f7ff; }
+    .skill-card-head {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 10px;
+    }
+    .skill-icon {
+      width: 42px; height: 42px;
+      border-radius: 10px;
+      font-size: 20px;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .skill-card h3 { font-size: 16px; font-weight: 700; color: var(--navy); }
+    .skill-preview { font-size: 13px; color: var(--gray); }
+    .skill-items {
+      display: none;
+      margin-top: 14px;
+      padding-top: 14px;
+      border-top: 1px solid var(--light-gray);
+      list-style: none;
+    }
+    .skill-card.expanded .skill-items { display: block; }
+    .skill-items li {
+      font-size: 13px;
+      color: var(--text);
+      padding: 5px 0;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .skill-items li::before {
+      content: '▸';
+      color: var(--mid-blue);
+      font-size: 11px;
+    }
+
+    /* ── OUTCOMES ── */
+    .outcome-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; }
+    .outcome-card {
+      background: var(--white);
+      border-radius: 16px;
+      padding: 28px;
+      border: 1px solid var(--light-gray);
+      text-align: center;
+    }
+    .outcome-card .big-icon { font-size: 40px; margin-bottom: 12px; }
+    .outcome-card h3 { font-size: 16px; font-weight: 700; color: var(--navy); margin-bottom: 8px; }
+    .outcome-card p { font-size: 13px; color: var(--gray); line-height: 1.6; }
+
+    /* ── COMPARE TABLE ── */
+    .compare-wrap {
+      background: var(--white);
+      border-radius: 16px;
+      overflow: hidden;
+      border: 1px solid var(--light-gray);
+    }
+    .compare-table { width: 100%; border-collapse: collapse; }
+    .compare-table th {
+      padding: 18px 24px;
+      font-size: 14px;
+      font-weight: 700;
+      text-align: left;
+    }
+    .compare-table th:first-child { background: var(--light-gray); color: var(--gray); }
+    .compare-table th.traditional { background: #fef2f2; color: #b91c1c; }
+    .compare-table th.academy { background: #eff6ff; color: var(--blue); }
+    .compare-table td {
+      padding: 14px 24px;
+      font-size: 14px;
+      border-top: 1px solid var(--light-gray);
+      vertical-align: top;
+    }
+    .compare-table td:first-child { font-weight: 600; color: var(--navy); background: #fafafa; }
+    .compare-table td.traditional { color: #b91c1c; background: #fff5f5; }
+    .compare-table td.academy { color: #166534; background: #f0fdf4; }
+
+    /* ── PILL TAGS ── */
+    .tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
+    .tag {
+      padding: 5px 14px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 600;
+      background: #dbeafe;
+      color: var(--blue);
+    }
+    .tag.gold { background: #fef9c3; color: #854d0e; }
+    .tag.green { background: #dcfce7; color: #166534; }
+
+    /* ── CALLOUT ── */
+    .callout {
+      background: linear-gradient(135deg, var(--navy), #1a3a6e);
+      color: white;
+      border-radius: 16px;
+      padding: 40px;
+      margin-top: 40px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .callout::before {
+      content: '"';
+      position: absolute;
+      top: -20px; left: 20px;
+      font-size: 180px;
+      color: rgba(255,255,255,0.05);
+      font-family: Georgia, serif;
+      line-height: 1;
+    }
+    .callout blockquote {
+      font-size: clamp(18px, 3vw, 24px);
+      font-weight: 600;
+      line-height: 1.5;
+      max-width: 700px;
+      margin: 0 auto 16px;
+      position: relative;
+      z-index: 1;
+    }
+    .callout cite {
+      font-size: 13px;
+      color: rgba(255,255,255,0.6);
+    }
+
+    /* ── ASSESSMENTS ── */
+    .assess-grid { display: grid; gap: 20px; }
+    .assess-item {
+      background: var(--white);
+      border-radius: 14px;
+      padding: 24px 28px;
+      border: 1px solid var(--light-gray);
+      display: flex;
+      gap: 20px;
+      align-items: flex-start;
+    }
+    .assess-num {
+      background: var(--navy);
+      color: white;
+      width: 36px; height: 36px;
+      border-radius: 8px;
+      font-weight: 800;
+      font-size: 15px;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .assess-item h3 { font-size: 16px; font-weight: 700; color: var(--navy); margin-bottom: 4px; }
+    .assess-item p { font-size: 13px; color: var(--gray); line-height: 1.6; }
+
+    /* ── PLACEMENT ── */
+    .placement-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+    @media (max-width: 640px) { .placement-grid { grid-template-columns: 1fr; } }
+    .placement-box {
+      background: var(--white);
+      border-radius: 14px;
+      padding: 24px;
+      border: 1px solid var(--light-gray);
+    }
+    .placement-box h3 { font-size: 15px; font-weight: 700; color: var(--navy); margin-bottom: 14px; display: flex; align-items: center; gap: 8px; }
+    .placement-box ul { list-style: none; }
+    .placement-box ul li {
+      padding: 7px 0;
+      font-size: 13px;
+      color: var(--text);
+      border-bottom: 1px solid var(--light-gray);
+      display: flex; align-items: center; gap: 8px;
+    }
+    .placement-box ul li:last-child { border-bottom: none; }
+    .placement-box ul li::before { content: '●'; color: var(--mid-blue); font-size: 8px; }
+
+    /* ── FOOTER ── */
+    .footer {
+      background: var(--navy);
+      color: rgba(255,255,255,0.5);
+      text-align: center;
+      padding: 28px 24px;
+      font-size: 13px;
+    }
+    .footer strong { color: rgba(255,255,255,0.8); }
+
+    @media (max-width: 768px) {
+      .hero { padding: 48px 20px 40px; }
+      .hero-stats { gap: 24px; }
+      .section { padding: 32px 16px 60px; }
+      .weekly-cycle { flex-direction: column; }
+      .week-day:not(:last-child)::after { content: '↓'; right: 50%; top: auto; bottom: -12px; transform: translateX(50%); }
+    }
+  </style>
+</head>
+<body>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-badge">Program Overview</div>
+  <h1><span>ASCEND</span> CEO Academy</h1>
+  <p style="font-size:11px; letter-spacing:1.5px; text-transform:uppercase; color:rgba(255,255,255,0.4); margin-bottom:16px; position:relative; z-index:1;">Accelerating Startups, Community & Economic Network Development</p>
+  <p class="hero-sub">Applied Executive Leadership — where MBA students and emerging executives lead real companies and develop into first-time CEOs.</p>
+  <div class="hero-stats">
+    <div class="hero-stat"><span class="num">12</span><span class="lbl">Weeks</span></div>
+    <div class="hero-stat"><span class="num">5</span><span class="lbl">Core Principles</span></div>
+    <div class="hero-stat"><span class="num">6</span><span class="lbl">CEO Competencies</span></div>
+    <div class="hero-stat"><span class="num">0</span><span class="lbl">Exams</span></div>
+  </div>
+</section>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-inner">
+    <button class="nav-btn active" onclick="showSection('overview', this)">Overview</button>
+    <button class="nav-btn" onclick="showSection('philosophy', this)">Philosophy</button>
+    <button class="nav-btn" onclick="showSection('participants', this)">Who It's For</button>
+    <button class="nav-btn" onclick="showSection('structure', this)">Program Structure</button>
+    <button class="nav-btn" onclick="showSection('skills', this)">CEO Skills</button>
+    <button class="nav-btn" onclick="showSection('assessment', this)">Assessment</button>
+    <button class="nav-btn" onclick="showSection('outcomes', this)">Outcomes</button>
+    <button class="nav-btn" onclick="showSection('compare', this)">vs. Traditional MBA</button>
+  </div>
+</nav>
+
+<!-- MAIN -->
+<main class="main">
+
+  <!-- 1. OVERVIEW -->
+  <section id="overview" class="section active">
+    <div class="section-header">
+      <div class="eyebrow">What is it?</div>
+      <h2>A Real-World CEO Experience</h2>
+      <p>The ASCEND CEO Academy is a three-month applied leadership program where participants don't study executive leadership — they <strong>practice it</strong>, leading real organizations with real teams and real stakes.</p>
+    </div>
+
+    <div class="cards cards-3">
+      <div class="card">
+        <div class="card-icon" style="background:#dbeafe;">🏢</div>
+        <h3>Real Placement</h3>
+        <p>Participants serve as acting CEOs or executive leads for partner organizations — startups, nonprofits, small businesses, or innovation initiatives.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon" style="background:#dcfce7;">🧭</div>
+        <h3>Structured Support</h3>
+        <p>Weekly reflections, one-on-one mentor meetings, and a just-in-time documentation library replace traditional lectures and coursework.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon" style="background:#fef9c3;">🎯</div>
+        <h3>Executive Development</h3>
+        <p>Evaluated across six CEO competencies — from strategic thinking and decision-making to communication and self-leadership.</p>
+      </div>
+    </div>
+
+    <div class="callout">
+      <blockquote>"Leadership is learned through responsibility, not lectures — participants hold actual decision authority."</blockquote>
+      <cite>— ASCEND CEO Academy Core Philosophy</cite>
+    </div>
+  </section>
+
+  <!-- 2. PHILOSOPHY -->
+  <section id="philosophy" class="section">
+    <div class="section-header">
+      <div class="eyebrow">The Foundation</div>
+      <h2>Five Operating Principles</h2>
+      <p>Every design decision in the Academy flows from five core beliefs about how executive leadership is actually developed. Click each principle to explore it.</p>
+    </div>
+
+    <div class="principle open" onclick="togglePrinciple(this)">
+      <div class="principle-num">1</div>
+      <div class="principle-body">
+        <div class="principle-title">Leadership is learned through responsibility, not lectures</div>
+        <div class="principle-sub">Authority first, curriculum second.</div>
+        <div class="principle-detail">Participants must hold <em>actual</em> decision authority — not simulated authority, not advisory roles. This is the non-negotiable foundation of the program. Without accountability for outcomes, there is no real learning.</div>
+      </div>
+      <div class="principle-arrow">▾</div>
+    </div>
+
+    <div class="principle" onclick="togglePrinciple(this)">
+      <div class="principle-num">2</div>
+      <div class="principle-body">
+        <div class="principle-title">Reflection converts experience into leadership skill</div>
+        <div class="principle-sub">Experience alone is not enough.</div>
+        <div class="principle-detail">Weekly structured reflection is mandatory. Without deliberate reflection, leaders repeat mistakes rather than learning from them. The Friday reflection ritual is the mechanism that turns daily activity into compounding leadership growth.</div>
+      </div>
+      <div class="principle-arrow">▾</div>
+    </div>
+
+    <div class="principle" onclick="togglePrinciple(this)">
+      <div class="principle-num">3</div>
+      <div class="principle-body">
+        <div class="principle-title">Mentorship prevents preventable failure</div>
+        <div class="principle-sub">Every participant has an experienced executive mentor.</div>
+        <div class="principle-detail">Mentors are seasoned executives who review reflections, challenge assumptions, and provide coaching on decision quality. Critically, mentors guide thinking — they do not run the company. This preserves the participant's learning while preventing avoidable mistakes.</div>
+      </div>
+      <div class="principle-arrow">▾</div>
+    </div>
+
+    <div class="principle" onclick="togglePrinciple(this)">
+      <div class="principle-num">4</div>
+      <div class="principle-body">
+        <div class="principle-title">Documentation replaces traditional curriculum</div>
+        <div class="principle-sub">A CEO survival manual, not a syllabus.</div>
+        <div class="principle-detail">The Academy maintains a CEO Documentation Library — practical guides on firing someone ethically, managing cash flow panic, handling board pressure, rebuilding broken team culture, and more. Participants consult these only when needed. No wasted theory.</div>
+      </div>
+      <div class="principle-arrow">▾</div>
+    </div>
+
+    <div class="principle" onclick="togglePrinciple(this)">
+      <div class="principle-num">5</div>
+      <div class="principle-body">
+        <div class="principle-title">Problems drive learning</div>
+        <div class="principle-sub">Curriculum evolves in real time.</div>
+        <div class="principle-detail">When multiple participants encounter the same challenge, the Academy creates new documentation. This means future cohorts benefit from real problems faced by real leaders — and no learning resource exists until it's actually needed.</div>
+      </div>
+      <div class="principle-arrow">▾</div>
+    </div>
+  </section>
+
+  <!-- 3. PARTICIPANTS -->
+  <section id="participants" class="section">
+    <div class="section-header">
+      <div class="eyebrow">Who Should Apply</div>
+      <h2>Built for Emerging Executives</h2>
+      <p>The program assumes baseline business knowledge exists and focuses entirely on executive application — not fundamentals.</p>
+    </div>
+
+    <div class="cards cards-2" style="margin-bottom: 32px;">
+      <div class="card">
+        <div class="card-icon" style="background:#ede9fe;">🎓</div>
+        <h3>Primary Audience</h3>
+        <ul class="checklist" style="margin-top: 8px;">
+          <li><span class="chk">✓</span>MBA students</li>
+          <li><span class="chk">✓</span>Graduate business students</li>
+          <li><span class="chk">✓</span>Startup founders transitioning into CEO roles</li>
+          <li><span class="chk">✓</span>Internal corporate leaders moving into executive positions</li>
+          <li><span class="chk">✓</span>Entrepreneurs preparing to scale organizations</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="card-icon" style="background:#fef9c3;">📋</div>
+        <h3>Prerequisites</h3>
+        <p style="margin-bottom: 12px;">Participants should already understand these business fundamentals:</p>
+        <div class="tags">
+          <span class="tag">Business Fundamentals</span>
+          <span class="tag">Finance Basics</span>
+          <span class="tag">Organizational Structure</span>
+          <span class="tag">Marketing Fundamentals</span>
+          <span class="tag">Operations Concepts</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-header" style="margin-top: 40px;">
+      <div class="eyebrow">Placement Types</div>
+      <h2>Where Participants Are Placed</h2>
+      <p>Each participant is placed with a real organization that offers authentic executive responsibility.</p>
+    </div>
+
+    <div class="placement-grid">
+      <div class="placement-box">
+        <h3>🏗️ Organization Types</h3>
+        <ul>
+          <li>Early-stage startup</li>
+          <li>Small business preparing for growth</li>
+          <li>Nonprofit needing executive leadership</li>
+          <li>Innovation initiative inside a larger organization</li>
+          <li>Community or economic development project</li>
+        </ul>
+      </div>
+      <div class="placement-box">
+        <h3>✅ What Must Be Included</h3>
+        <ul>
+          <li>Decision responsibility</li>
+          <li>Leadership of at least one team or function</li>
+          <li>Weekly measurable organizational goals</li>
+          <li>Access to operational data</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4. STRUCTURE -->
+  <section id="structure" class="section">
+    <div class="section-header">
+      <div class="eyebrow">12-Week Program</div>
+      <h2>How the Program is Structured</h2>
+      <p>Three phases take participants from orientation through active CEO leadership to final reflection and portfolio completion.</p>
+    </div>
+
+    <div class="timeline">
+      <div class="timeline-phases">
+        <button class="phase-tab active" onclick="showPhase('phase1', this)">
+          Phase 1
+          <span class="phase-label">Week 1 · Bootcamp</span>
+        </button>
+        <button class="phase-tab" onclick="showPhase('phase2', this)">
+          Phase 2
+          <span class="phase-label">Weeks 2–11 · CEO Placement</span>
+        </button>
+        <button class="phase-tab" onclick="showPhase('phase3', this)">
+          Phase 3
+          <span class="phase-label">Week 12 · Closing</span>
+        </button>
+      </div>
+
+      <div id="phase1" class="phase-content active">
+        <h3>⚡ Executive Bootcamp Week</h3>
+        <p class="phase-desc">Full-time, in-person or hybrid. The single most intensive week — focused on mindset, systems, and preparation before participants step into their organizations.</p>
+        <div class="cards cards-2">
+          <div>
+            <h4 style="font-size:14px;font-weight:700;color:var(--navy);margin-bottom:12px;">What Happens</h4>
+            <ul class="checklist">
+              <li><span class="chk">✓</span>Team formation and cohort building</li>
+              <li><span class="chk">✓</span>Leadership mindset reset</li>
+              <li><span class="chk">✓</span>Executive communication expectations</li>
+              <li><span class="chk">✓</span>Program systems walkthrough</li>
+              <li><span class="chk">✓</span>Reflection training</li>
+              <li><span class="chk">✓</span>Mentor introduction</li>
+              <li><span class="chk">✓</span>Organizational placement preparation</li>
+            </ul>
+          </div>
+          <div>
+            <h4 style="font-size:14px;font-weight:700;color:var(--navy);margin-bottom:12px;">Participants Leave Week 1 With</h4>
+            <ul class="checklist">
+              <li><span class="chk">✓</span>Leadership journal started</li>
+              <li><span class="chk">✓</span>Assigned organization</li>
+              <li><span class="chk">✓</span>Initial CEO action plan</li>
+              <li><span class="chk">✓</span>Defined success metrics</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div id="phase2" class="phase-content">
+        <h3>🏆 CEO Placement Period</h3>
+        <p class="phase-desc">Weeks 2–11 are the core of the Academy. There are no weekly lectures. Participants actively lead their assigned organizations on a structured weekly cadence.</p>
+
+        <h4 style="font-size:14px;font-weight:700;color:var(--navy);margin-bottom:16px;">The Weekly Rhythm</h4>
+        <div class="weekly-cycle">
+          <div class="week-day friday">
+            <div class="week-day-label">Friday</div>
+            <div class="week-day-icon">📝</div>
+            <div class="week-day-title">Reflection Due</div>
+            <ul class="week-day-items">
+              <li>Key decisions made</li>
+              <li>Challenges encountered</li>
+              <li>People leadership situations</li>
+              <li>Failures and lessons</li>
+              <li>Questions for mentor</li>
+            </ul>
+          </div>
+          <div class="week-day monday">
+            <div class="week-day-label">Monday</div>
+            <div class="week-day-icon">🤝</div>
+            <div class="week-day-title">Mentor Meeting</div>
+            <ul class="week-day-items">
+              <li>Review reflection</li>
+              <li>Discuss decision quality</li>
+              <li>Leadership coaching</li>
+              <li>Challenge assumptions</li>
+              <li>Executive frameworks</li>
+            </ul>
+          </div>
+          <div class="week-day midweek">
+            <div class="week-day-label">Tue – Thu</div>
+            <div class="week-day-icon">⚙️</div>
+            <div class="week-day-title">CEO Execution</div>
+            <ul class="week-day-items">
+              <li>Running meetings</li>
+              <li>Operational decisions</li>
+              <li>Managing staff</li>
+              <li>Strategic planning</li>
+              <li>Handling crises</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div id="phase3" class="phase-content">
+        <h3>🎓 Program Completion</h3>
+        <p class="phase-desc">Week 12 is dedicated to synthesis, reflection, and final deliverables. Participants demonstrate what they learned through demonstrated action — not exams.</p>
+        <div class="cards cards-2">
+          <div class="card" style="border-left: 4px solid var(--mid-blue);">
+            <h3>📁 CEO Leadership Portfolio</h3>
+            <ul class="checklist" style="margin-top:8px;">
+              <li><span class="chk">✓</span>Major decisions made</li>
+              <li><span class="chk">✓</span>Strategic initiatives launched</li>
+              <li><span class="chk">✓</span>Organizational outcomes achieved</li>
+              <li><span class="chk">✓</span>Leadership mistakes and lessons</li>
+              <li><span class="chk">✓</span>Personal leadership framework developed</li>
+            </ul>
+          </div>
+          <div class="card" style="border-left: 4px solid var(--gold);">
+            <h3>🎤 Executive Presentation</h3>
+            <ul class="checklist" style="margin-top:8px;">
+              <li><span class="chk">✓</span>What they inherited</li>
+              <li><span class="chk">✓</span>What they changed</li>
+              <li><span class="chk">✓</span>What worked</li>
+              <li><span class="chk">✓</span>What failed</li>
+              <li><span class="chk">✓</span>What they'd do differently</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. SKILLS -->
+  <section id="skills" class="section">
+    <div class="section-header">
+      <div class="eyebrow">CEO Competencies</div>
+      <h2>Six Skills Every CEO Needs</h2>
+      <p>Participants are evaluated across six core executive competencies. Click any skill to see what's measured.</p>
+    </div>
+
+    <div class="skill-grid">
+      <div class="skill-card" onclick="toggleSkill(this)">
+        <div class="skill-card-head">
+          <div class="skill-icon" style="background:#dbeafe;">🧭</div>
+          <div>
+            <h3>Strategic Thinking</h3>
+            <div class="skill-preview">Setting direction and allocating resources</div>
+          </div>
+        </div>
+        <ul class="skill-items">
+          <li>Ability to define direction</li>
+          <li>Ability to prioritize initiatives</li>
+          <li>Ability to allocate resources</li>
+        </ul>
+      </div>
+
+      <div class="skill-card" onclick="toggleSkill(this)">
+        <div class="skill-card-head">
+          <div class="skill-icon" style="background:#fef9c3;">⚖️</div>
+          <div>
+            <h3>Decision Making Under Uncertainty</h3>
+            <div class="skill-preview">Speed, risk, accountability</div>
+          </div>
+        </div>
+        <ul class="skill-items">
+          <li>Speed of decision making</li>
+          <li>Risk awareness</li>
+          <li>Accountability for outcomes</li>
+        </ul>
+      </div>
+
+      <div class="skill-card" onclick="toggleSkill(this)">
+        <div class="skill-card-head">
+          <div class="skill-icon" style="background:#dcfce7;">👥</div>
+          <div>
+            <h3>Organizational Leadership</h3>
+            <div class="skill-preview">Building teams and culture</div>
+          </div>
+        </div>
+        <ul class="skill-items">
+          <li>Team alignment</li>
+          <li>Conflict resolution</li>
+          <li>Staff motivation</li>
+          <li>Culture building</li>
+        </ul>
+      </div>
+
+      <div class="skill-card" onclick="toggleSkill(this)">
+        <div class="skill-card-head">
+          <div class="skill-icon" style="background:#ede9fe;">📢</div>
+          <div>
+            <h3>Communication</h3>
+            <div class="skill-preview">Executive presence and clarity</div>
+          </div>
+        </div>
+        <ul class="skill-items">
+          <li>Clarity of direction</li>
+          <li>Executive presence</li>
+          <li>Stakeholder messaging</li>
+          <li>Difficult conversation handling</li>
+        </ul>
+      </div>
+
+      <div class="skill-card" onclick="toggleSkill(this)">
+        <div class="skill-card-head">
+          <div class="skill-icon" style="background:#fee2e2;">⚙️</div>
+          <div>
+            <h3>Operational Awareness</h3>
+            <div class="skill-preview">Finance, resources, and processes</div>
+          </div>
+        </div>
+        <ul class="skill-items">
+          <li>Financial literacy in real decisions</li>
+          <li>Resource management</li>
+          <li>Process understanding</li>
+          <li>Organizational bottleneck recognition</li>
+        </ul>
+      </div>
+
+      <div class="skill-card" onclick="toggleSkill(this)">
+        <div class="skill-card-head">
+          <div class="skill-icon" style="background:#fef3c7;">🧘</div>
+          <div>
+            <h3>Self-Leadership</h3>
+            <div class="skill-preview">Emotional intelligence and growth</div>
+          </div>
+        </div>
+        <ul class="skill-items">
+          <li>Emotional regulation</li>
+          <li>Reflection depth</li>
+          <li>Coachability</li>
+          <li>Adaptability</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6. ASSESSMENT -->
+  <section id="assessment" class="section">
+    <div class="section-header">
+      <div class="eyebrow">No Exams</div>
+      <h2>Leadership is Assessed Through Action</h2>
+      <p>There are no written tests. Evaluation is based entirely on demonstrated leadership across five dimensions.</p>
+    </div>
+
+    <div class="assess-grid">
+      <div class="assess-item">
+        <div class="assess-num">1</div>
+        <div>
+          <h3>Weekly Reflections</h3>
+          <p>Every Friday, participants document key decisions, challenges, failures, and leadership situations. Reflection depth and self-awareness are evaluated over time.</p>
+        </div>
+      </div>
+      <div class="assess-item">
+        <div class="assess-num">2</div>
+        <div>
+          <h3>Mentor Feedback</h3>
+          <p>Executive mentors provide ongoing coaching assessments based on weekly meetings — evaluating decision quality, coachability, and leadership growth trajectory.</p>
+        </div>
+      </div>
+      <div class="assess-item">
+        <div class="assess-num">3</div>
+        <div>
+          <h3>Organizational Performance Indicators</h3>
+          <p>Real outcomes from the placed organization are part of the evaluation — did the team improve? Did the strategy deliver measurable results?</p>
+        </div>
+      </div>
+      <div class="assess-item">
+        <div class="assess-num">4</div>
+        <div>
+          <h3>Staff Feedback</h3>
+          <p>Where applicable, feedback from the teams participants led provides a ground-level view of organizational leadership effectiveness.</p>
+        </div>
+      </div>
+      <div class="assess-item">
+        <div class="assess-num">5</div>
+        <div>
+          <h3>Final Executive Portfolio</h3>
+          <p>A comprehensive document capturing the participant's full arc — decisions made, outcomes achieved, mistakes learned from, and their personal leadership framework.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7. OUTCOMES -->
+  <section id="outcomes" class="section">
+    <div class="section-header">
+      <div class="eyebrow">What You'll Have</div>
+      <h2>What Graduates Walk Away With</h2>
+      <p>ASCEND CEO Academy graduates don't have simulated leadership experience — they have actual CEO experience and the skills to prove it.</p>
+    </div>
+
+    <div class="outcome-grid">
+      <div class="outcome-card">
+        <div class="big-icon">🏛️</div>
+        <h3>Executive Reality</h3>
+        <p>Deep understanding of the daily reality of executive leadership — not theoretical knowledge of what it might be like.</p>
+      </div>
+      <div class="outcome-card">
+        <div class="big-icon">🎯</div>
+        <h3>Authority & Judgment</h3>
+        <p>Proven ability to lead organizations with real authority and make high-stakes decisions under uncertainty.</p>
+      </div>
+      <div class="outcome-card">
+        <div class="big-icon">🔄</div>
+        <h3>Reflective Decision-Making</h3>
+        <p>A lifetime habit of structured reflection that continuously converts experience into leadership growth.</p>
+      </div>
+      <div class="outcome-card">
+        <div class="big-icon">🌐</div>
+        <h3>Mentor Network</h3>
+        <p>Ongoing relationships with experienced executives who provided real coaching, not simulated mentorship.</p>
+      </div>
+      <div class="outcome-card">
+        <div class="big-icon">📋</div>
+        <h3>Portfolio of Proof</h3>
+        <p>A documented leadership record showing real decisions, real outcomes, and real lessons — immediately credible to boards and investors.</p>
+      </div>
+      <div class="outcome-card">
+        <div class="big-icon">🚀</div>
+        <h3>Launch Readiness</h3>
+        <p>For startup-track participants: a validated concept, operational plan, investor-ready materials, and a launch roadmap.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 8. COMPARE -->
+  <section id="compare" class="section">
+    <div class="section-header">
+      <div class="eyebrow">The Difference</div>
+      <h2>ASCEND CEO Academy vs. Traditional MBA</h2>
+      <p>The Academy is built to close the gap between academic preparation and executive reality. Here's exactly how it differs.</p>
+    </div>
+
+    <div class="compare-wrap">
+      <table class="compare-table">
+        <thead>
+          <tr>
+            <th></th>
+            <th class="traditional">❌ Traditional MBA</th>
+            <th class="academy">✅ ASCEND CEO Academy</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Teaching Method</td>
+            <td class="traditional">Lectures, cases, simulations</td>
+            <td class="academy">Real organizational responsibility</td>
+          </tr>
+          <tr>
+            <td>Assessment</td>
+            <td class="traditional">Exams, papers, grades</td>
+            <td class="academy">Leadership outcomes & portfolio</td>
+          </tr>
+          <tr>
+            <td>Decision Making</td>
+            <td class="traditional">Hypothetical scenarios</td>
+            <td class="academy">Real decisions with real consequences</td>
+          </tr>
+          <tr>
+            <td>Curriculum</td>
+            <td class="traditional">Fixed syllabus set in advance</td>
+            <td class="academy">Evolves based on real challenges</td>
+          </tr>
+          <tr>
+            <td>Mentorship</td>
+            <td class="traditional">Occasional advisor meetings</td>
+            <td class="academy">Weekly executive coaching</td>
+          </tr>
+          <tr>
+            <td>Leadership Team</td>
+            <td class="traditional">Case study characters</td>
+            <td class="academy">Actual people you manage</td>
+          </tr>
+          <tr>
+            <td>Core Skill</td>
+            <td class="traditional">Analysis and frameworks</td>
+            <td class="academy">Judgment under pressure</td>
+          </tr>
+          <tr>
+            <td>Output</td>
+            <td class="traditional">Academic credentials</td>
+            <td class="academy">CEO experience + leadership portfolio</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="callout" style="margin-top: 40px;">
+      <blockquote>"Traditional MBA programs teach analysis, models, and case studies. The ASCEND CEO Academy teaches responsibility, judgment, and leadership under pressure."</blockquote>
+      <cite>— ASCEND CEO Academy Program Design</cite>
+    </div>
+  </section>
+
+</main>
+
+<footer class="footer">
+  <strong>ASCEND CEO Academy</strong> — Applied Executive Leadership Program &nbsp;·&nbsp; Interactive Explainer
+</footer>
+
+<script>
+  function showSection(id, btn) {
+    document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+    document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+    btn.classList.add('active');
+    window.scrollTo({ top: document.querySelector('.nav').offsetTop - 1, behavior: 'smooth' });
+  }
+
+  function togglePrinciple(el) {
+    const wasOpen = el.classList.contains('open');
+    document.querySelectorAll('.principle').forEach(p => p.classList.remove('open'));
+    if (!wasOpen) el.classList.add('open');
+  }
+
+  function showPhase(id, btn) {
+    document.querySelectorAll('.phase-content').forEach(c => c.classList.remove('active'));
+    document.querySelectorAll('.phase-tab').forEach(b => b.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+    btn.classList.add('active');
+  }
+
+  function toggleSkill(card) {
+    const wasExpanded = card.classList.contains('expanded');
+    document.querySelectorAll('.skill-card').forEach(c => c.classList.remove('expanded'));
+    if (!wasExpanded) card.classList.add('expanded');
+  }
+</script>
+</body>
+</html>
