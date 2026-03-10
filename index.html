@@ -73,16 +73,17 @@
 
   </div><!-- /idx-ascend-inner -->
 
-  <div class="idx-slide-tabs">
-    <button class="idx-tab active" onclick="goTo(0)"><span class="idx-tab-letter">A</span><span class="idx-tab-word">Applied</span></button>
-    <button class="idx-tab" onclick="goTo(1)"><span class="idx-tab-letter">S</span><span class="idx-tab-word">Stakes</span></button>
-    <button class="idx-tab" onclick="goTo(2)"><span class="idx-tab-letter">C</span><span class="idx-tab-word">Curriculum</span></button>
-    <button class="idx-tab" onclick="goTo(3)"><span class="idx-tab-letter">E</span><span class="idx-tab-word">Expertise</span></button>
-    <button class="idx-tab" onclick="goTo(4)"><span class="idx-tab-letter">N</span><span class="idx-tab-word">Network</span></button>
-    <button class="idx-tab" onclick="goTo(5)"><span class="idx-tab-letter">D</span><span class="idx-tab-word">Deliverables</span></button>
-  </div>
+  <div class="idx-slide-wrap">
+    <div class="idx-slide-tabs">
+      <button class="idx-tab active" onclick="goTo(0)"><span class="idx-tab-letter">A</span><span class="idx-tab-word">Applied</span></button>
+      <button class="idx-tab" onclick="goTo(1)"><span class="idx-tab-letter">S</span><span class="idx-tab-word">Stakes</span></button>
+      <button class="idx-tab" onclick="goTo(2)"><span class="idx-tab-letter">C</span><span class="idx-tab-word">Curriculum</span></button>
+      <button class="idx-tab" onclick="goTo(3)"><span class="idx-tab-letter">E</span><span class="idx-tab-word">Expertise</span></button>
+      <button class="idx-tab" onclick="goTo(4)"><span class="idx-tab-letter">N</span><span class="idx-tab-word">Network</span></button>
+      <button class="idx-tab" onclick="goTo(5)"><span class="idx-tab-letter">D</span><span class="idx-tab-word">Deliverables</span></button>
+    </div>
 
-  <div id="slides">
+    <div id="slides">
 
       <div class="slide">
         <div class="slide-body">
@@ -204,7 +205,7 @@
     <div class="idx-slide-nav">
       <button id="prev-btn" onclick="changeSlide(-1)">← Prev</button>
       <button id="next-btn" onclick="changeSlide(1)">Next →</button>
-    </div>
+    </div><!-- /idx-slide-wrap -->
 
 </section>
 

@@ -456,10 +456,15 @@ header h1 span { color: var(--accent); }
   line-height: 1.15;
 }
 
+.idx-slide-wrap {
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: 0 var(--pad);
+  overflow: hidden;
+}
+
 .idx-slide-tabs {
   display: flex;
-  max-width: calc(var(--max) - 2 * var(--pad));
-  margin: 0 auto;
   border-bottom: 1px solid var(--border);
   overflow-x: auto;
   scrollbar-width: none;
@@ -510,8 +515,6 @@ header h1 span { color: var(--accent); }
 .idx-tab.active .idx-tab-word   { color: var(--text-sec); }
 
 #slides {
-  max-width: calc(var(--max) - 2 * var(--pad));
-  margin: 0 auto;
   border: 1px solid var(--border);
   border-top: none;
   overflow: hidden;
@@ -1205,8 +1208,8 @@ footer strong { color: var(--text-sec); font-weight: 600; }
   /* ── ASCEND slides ── */
   .idx-ascend { padding-bottom: 44px; }
   .idx-ascend-inner { padding: 44px var(--pad) 0; }
-  .idx-slide-tabs,
-  #slides { max-width: 100%; margin: 0 var(--pad); }
+  .idx-slide-wrap { padding: 0; }
+  #slides { margin: 0; }
   .idx-ascend-header { margin-bottom: 36px; }
   .idx-tab-word { display: none; }
   .idx-tab { padding: 12px 8px; }
