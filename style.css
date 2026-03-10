@@ -1156,17 +1156,48 @@ footer strong { color: var(--text-sec); font-weight: 600; }
 
 /* ─── RESPONSIVE ─── */
 @media (max-width: 768px) {
-  :root { --pad: 24px; }
-  header { height: auto; padding: 14px var(--pad); }
-  .header-nav { gap: 0; }
-  .header-link { padding: 6px 10px; font-size: 1rem; }
-  .format-row  { grid-template-columns: 1fr; }
-  .pilot-banner { flex-direction: column; padding: 32px 28px; gap: 20px; }
-  .step { padding: 28px 24px; gap: 20px; }
+  :root { --pad: 20px; }
 
-  /* ASCEND slide: single column on mobile */
+  /* Header */
+  header { height: auto; padding: 12px var(--pad); }
+  .header-subtitle { display: none; }
+  .header-nav { gap: 0; }
+  .header-link { padding: 6px 10px; font-size: 0.95rem; }
+
+  /* Hero — hide image thumbnails, single column */
+  .idx-hero-inner { grid-template-columns: 1fr; }
+  .idx-hero-right { display: none; }
+  .idx-hero-sub   { display: none; }
+  .hero-sub       { font-size: 1rem; }
+
+  /* Marquee — single row */
+  .marquee-wrap   { gap: 8px; }
+  .marquee-row.right { display: none; }
+
+  /* Section headers */
+  .section-header p { font-size: 1rem; }
+  .section { padding: 56px var(--pad); }
+
+  /* ASCEND slide: single column */
   .slide-body { grid-template-columns: 1fr; }
   .slide-callout { border-left: none; border-top: 1px solid var(--border); }
+  .slide-text { padding: 32px var(--pad); }
+  .slide-big-num { font-size: 3.5rem; }
   .idx-tab-word { display: none; }
   .idx-tab { padding: 12px 10px; }
+
+  /* Grids → single column */
+  .how-grid       { grid-template-columns: 1fr; }
+  .outcomes-grid  { grid-template-columns: 1fr; }
+  .topics-grid    { grid-template-columns: 1fr; }
+  .topics-grid .topic-card.solo { grid-column: 1; }
+  .steps-grid     { grid-template-columns: 1fr; }
+  .format-row     { grid-template-columns: 1fr; }
+  .idx-cards      { grid-template-columns: 1fr; }
+
+  /* Other components */
+  .pilot-banner { flex-direction: column; padding: 32px var(--pad); gap: 20px; }
+  .step         { padding: 24px var(--pad); gap: 16px; }
+  .how-card     { padding: 28px 24px; }
+  blockquote    { padding: 24px var(--pad); }
 }

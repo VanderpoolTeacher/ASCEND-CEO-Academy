@@ -264,7 +264,7 @@
     slides[current].style.display = 'none';
     tabs[current].classList.remove('active');
     current = n;
-    slides[current].style.display = 'flex';
+    slides[current].style.display = 'block';
     tabs[current].classList.add('active');
     document.getElementById('prev-btn').disabled = current === 0;
     document.getElementById('next-btn').disabled = current === slides.length - 1;
@@ -275,7 +275,7 @@
     if (next >= 0 && next < slides.length) goTo(next);
   }
 
-  slides.forEach(function(s, i) { s.style.display = i === 0 ? 'flex' : 'none'; });
+  slides.forEach(function(s, i) { s.style.display = i === 0 ? 'block' : 'none'; });
   document.getElementById('prev-btn').disabled = true;
 
   document.addEventListener('keydown', function(e) {
