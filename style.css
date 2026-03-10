@@ -94,6 +94,7 @@ header {
 }
 
 .header-logo:hover { color: var(--text); text-decoration: none; }
+.logo-ascend { color: var(--accent); }
 
 .header-subtitle {
   font-size: 1rem;
@@ -457,8 +458,9 @@ header h1 span { color: var(--accent); }
 
 .idx-slide-tabs {
   display: flex;
+  max-width: calc(var(--max) - 2 * var(--pad));
+  margin: 0 auto;
   border-bottom: 1px solid var(--border);
-  margin-bottom: 0;
   overflow-x: auto;
   scrollbar-width: none;
 }
@@ -507,7 +509,13 @@ header h1 span { color: var(--accent); }
 .idx-tab.active .idx-tab-letter { color: var(--accent); }
 .idx-tab.active .idx-tab-word   { color: var(--text-sec); }
 
-#slides { border: 1px solid var(--border); border-top: none; overflow: hidden; }
+#slides {
+  max-width: calc(var(--max) - 2 * var(--pad));
+  margin: 0 auto;
+  border: 1px solid var(--border);
+  border-top: none;
+  overflow: hidden;
+}
 
 .slide { display: none; }
 
@@ -1138,6 +1146,11 @@ footer {
 }
 
 footer strong { color: var(--text-sec); font-weight: 600; }
+.footer-attr  { white-space: nowrap; }
+
+@media (max-width: 540px) {
+  .footer-attr { display: block; margin-top: 4px; }
+}
 
 /* ─── UTILITY ─── */
 .hidden { display: none !important; }
@@ -1149,6 +1162,9 @@ footer strong { color: var(--text-sec); font-weight: 600; }
 ::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.2); }
 
 /* ─── RESPONSIVE ─── */
+/* ── 3-col format row variant ── */
+.format-row-3 { grid-template-columns: repeat(3, 1fr); }
+
 @media (max-width: 768px) {
   :root { --pad: 20px; }
 
@@ -1156,61 +1172,76 @@ footer strong { color: var(--text-sec); font-weight: 600; }
   header { height: auto; padding: 12px var(--pad); }
   .header-subtitle { display: none; }
   .header-nav { gap: 0; }
-  .header-link { padding: 6px 10px; font-size: 0.95rem; }
+  .header-link { padding: 6px 10px; font-size: 0.9rem; }
 
   /* ── Index hero ── */
   .idx-hero { min-height: auto; }
-  .idx-hero-inner { grid-template-columns: 1fr; gap: 0; padding: 56px var(--pad) 32px; }
+  .idx-hero-inner { grid-template-columns: 1fr; gap: 0; padding: 48px var(--pad) 28px; }
   .idx-hero-right { display: none; }
-  .idx-hero-sub   { font-size: 1rem; margin-bottom: 28px; }
-  .idx-hero-stats { flex-wrap: wrap; gap: 20px; padding: 20px var(--pad); }
+  .idx-hero-sub   { font-size: 1rem; margin-bottom: 24px; }
+  .idx-hero-stats { flex-wrap: wrap; gap: 16px; padding: 20px var(--pad); }
+  .idx-stat-num   { font-size: 1.4rem; }
 
   /* ── Page hero (Explainer / Office Hours) ── */
-  .page-hero { padding: 56px var(--pad) 40px; }
+  .page-hero { padding: 48px var(--pad) 36px; }
+  .page-hero h1 { font-size: clamp(2rem, 8vw, 3rem); }
   .hero-sub  { font-size: 1rem; }
   .marquee-wrap   { gap: 8px; }
   .marquee-row.right { display: none; }
 
+  /* ── Resources about strip ── */
+  .idx-about-inner { flex-direction: column; gap: 12px; padding: 28px var(--pad); }
+  .idx-about-inner .eyebrow { white-space: normal; }
+
   /* ── Nav tabs ── */
-  .nav-inner { padding: 0 var(--pad); }
-  .nav-btn   { padding: 12px 14px; font-size: 0.9rem; }
+  .nav-inner { padding: 0 var(--pad); gap: 0; }
+  .nav-btn   { padding: 12px 12px; font-size: 0.88rem; white-space: nowrap; }
 
   /* ── Sections ── */
-  .section { padding: 48px var(--pad); }
-  .section-header { margin-bottom: 32px; }
+  .section { padding: 44px var(--pad); }
+  .section-header { margin-bottom: 28px; }
   .section-header p { font-size: 1rem; }
 
   /* ── ASCEND slides ── */
-  .idx-ascend { padding-bottom: 48px; }
-  .idx-ascend-inner { padding: 48px var(--pad) 0; }
+  .idx-ascend { padding-bottom: 44px; }
+  .idx-ascend-inner { padding: 44px var(--pad) 0; }
+  .idx-slide-tabs,
+  #slides { max-width: 100%; margin: 0 var(--pad); }
+  .idx-ascend-header { margin-bottom: 36px; }
   .idx-tab-word { display: none; }
-  .idx-tab { padding: 12px 10px; }
+  .idx-tab { padding: 12px 8px; }
   .slide-body { grid-template-columns: 1fr; }
   .slide-text { padding: 28px var(--pad); }
-  .slide-callout { border-left: none; border-top: 1px solid var(--border); padding: 28px var(--pad); }
-  .slide-big-num { font-size: 3.5rem; }
+  .slide-callout { border-left: none; border-top: 1px solid var(--border); padding: 24px var(--pad); }
+  .slide-big-num { font-size: 3.5rem; margin-bottom: 8px; }
   .idx-slide-nav { padding: 16px var(--pad); }
 
-  /* ── Grids → single column ── */
-  .how-grid       { grid-template-columns: 1fr; }
-  .outcomes-grid  { grid-template-columns: 1fr; }
-  .topics-grid    { grid-template-columns: 1fr; }
+  /* ── All grids → 1 column ── */
+  .how-grid        { grid-template-columns: 1fr; }
+  .outcomes-grid   { grid-template-columns: 1fr; }
+  .topics-grid     { grid-template-columns: 1fr; }
   .topics-grid .topic-card.solo { grid-column: 1; }
-  .team-grid      { grid-template-columns: 1fr; }
-  .steps-grid     { grid-template-columns: 1fr; }
-  .format-row     { grid-template-columns: 1fr; }
-  .idx-cards      { grid-template-columns: 1fr; }
+  .team-grid       { grid-template-columns: 1fr; }
+  .steps-grid      { grid-template-columns: 1fr; }
+  .format-row,
+  .format-row-3    { grid-template-columns: 1fr; }
+  .idx-cards       { grid-template-columns: 1fr; }
 
-  /* ── Cards & components ── */
-  .how-card     { padding: 28px var(--pad); }
-  .format-box   { padding: 28px var(--pad); }
-  .member-card  { padding: 28px var(--pad); }
-  .idx-card     { padding: 32px var(--pad); }
-  .topic-card   { padding: 20px var(--pad); }
-  .step         { padding: 24px var(--pad); gap: 16px; }
-  .step-num     { font-size: 1.5rem; min-width: 28px; }
-  blockquote    { padding: 24px var(--pad); }
+  /* ── Cards ── */
+  .how-card     { padding: 24px var(--pad); }
+  .format-box   { padding: 24px var(--pad); }
+  .member-card  { padding: 24px var(--pad); }
+  .idx-card     { padding: 28px var(--pad); }
+  .topic-card   { padding: 18px var(--pad); }
+  .step         { padding: 20px var(--pad); gap: 14px; }
+  .step-num     { font-size: 1.4rem; min-width: 26px; }
+  blockquote    { padding: 20px var(--pad); margin-top: 32px; }
+  blockquote p  { font-size: 1.1rem; }
 
   /* ── Pilot banner ── */
-  .pilot-banner { flex-direction: column; padding: 28px var(--pad); gap: 16px; }
+  .pilot-banner { flex-direction: column; padding: 24px var(--pad); gap: 14px; }
+
+  /* ── Skills / phase / principle accordions ── */
+  .skill-item,
+  .principle    { padding: 16px var(--pad); }
 }
